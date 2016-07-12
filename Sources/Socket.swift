@@ -539,7 +539,7 @@ public class Socket: SocketReader, SocketWriter {
 	/// 	**Note:** The readBuffer is actually allocating unmanaged memory that'll
 	///			be deallocated when we're done with it.
 	///
-	var readBuffer: UnsafeMutablePointer<CChar> = UnsafeMutablePointer<CChar>(allocatingCapacity: Socket.SOCKET_DEFAULT_READ_BUFFER_SIZE)
+	var readBuffer: UnsafeMutablePointer<UInt8> = UnsafeMutablePointer<UInt8>(allocatingCapacity: Socket.SOCKET_DEFAULT_READ_BUFFER_SIZE)
 	
 	///
 	/// Internal Storage Buffer initially created with `Socket.SOCKET_DEFAULT_READ_BUFFER_SIZE`.
@@ -578,7 +578,7 @@ public class Socket: SocketReader, SocketWriter {
 				
 				readBuffer.deinitialize()
 				readBuffer.deallocateCapacity(oldValue)
-				readBuffer = UnsafeMutablePointer<CChar>(allocatingCapacity: readBufferSize)
+				readBuffer = UnsafeMutablePointer<UInt8>(allocatingCapacity: readBufferSize)
 				readBuffer.initialize(with:0)
 			}
 		}
@@ -1727,7 +1727,7 @@ public class Socket: SocketReader, SocketWriter {
 	///
 	/// - Returns: The number of bytes returned in the buffer.
 	///
-	public func read(into buffer: UnsafeMutablePointer<CChar>, bufSize: Int) throws -> Int {
+	public func read(into buffer: UnsafeMutablePointer<UInt8>, bufSize: Int) throws -> Int {
 		
 		// Make sure the buffer is valid...
 		if bufSize == 0 {
@@ -1922,7 +1922,7 @@ public class Socket: SocketReader, SocketWriter {
 	///
 	/// - Returns: The number of bytes returned in the buffer.
 	///
-	public func read(into buffer: UnsafeMutablePointer<CChar>, bufSize: Int, from address: Address) throws -> Int {
+	public func read(into buffer: UnsafeMutablePointer<UInt8>, bufSize: Int, from address: Address) throws -> Int {
 		
 		// Make sure the buffer is valid...
 		if bufSize == 0 {
